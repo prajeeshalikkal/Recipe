@@ -236,7 +236,8 @@ class home extends StatelessWidget {
                              fontSize: 18,
                                 fontWeight: FontWeight.w500)),
                                    ),
-                                SizedBox(height: height/60),
+
+                                // SizedBox(height: height/60),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20),
                                     child: Column(
