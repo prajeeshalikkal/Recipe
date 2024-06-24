@@ -96,10 +96,10 @@ class recprofile extends StatelessWidget {
                                   fontSize: 20,
                                   fontWeight: FontWeight.w600)),
 
-                                    Text("user any links", // Name ..........
+                                    Text("user any links yous", // Name ..........
                               style: TextStyle(
                                   color: blue1,
-                                  fontSize:14,
+                                  fontSize:12,
                                   fontWeight: FontWeight.w600)),
 
 

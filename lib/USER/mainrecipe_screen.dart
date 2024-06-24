@@ -8,7 +8,6 @@ import 'package:recipeapp/PROVIDER/mainprovider.dart';
 import 'package:recipeapp/USER/comment_screen.dart';
 import 'package:recipeapp/USER/profile_screen.dart';
 import 'package:recipeapp/USER/recprofile.dart';
-import 'package:recipeapp/USER/subprofile.dart';
 import 'package:share_plus/share_plus.dart';
 
 class mainrecipie extends StatelessWidget {
