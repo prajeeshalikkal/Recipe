@@ -36,7 +36,7 @@ class _BottombarState extends State<Bottombar> {
     print("printUserid"+widget.userid);
     var pages = [
       home(  userid: widget.userid,name:widget.name,phone:widget.phone,photo: widget.photo,),
-      search(),
+      search(  userid: widget.userid,name:widget.name,phone:widget.phone,photo: widget.photo,),
       profile(userid: widget.userid,name:widget.name,phone:widget.phone,photo: widget.photo,),
       
      

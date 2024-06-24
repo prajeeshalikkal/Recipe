@@ -6,7 +6,11 @@ import 'package:recipeapp/PROVIDER/mainprovider.dart';
 import 'package:recipeapp/USER/searchcategory_screen.dart';
 
 class search extends StatelessWidget {
-const search({super.key});
+    String userid;
+  String name;
+  String phone;
+  String photo;
+ search({super.key,required this.userid,required this.name,required this.phone,required this.photo});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ const search({super.key});
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => searchcategory( categoryid:value.categorylist[index].id,)));
+                                builder: (context) => searchcategory( categoryid:value.categorylist[index].id,name: name,phone:  phone, photo: photo,userid: userid,)));
                       },
                       child: Container(
                         height: height / 5,

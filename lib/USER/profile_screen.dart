@@ -47,7 +47,7 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
   }
 
   Widget build(BuildContext context) {
-    print("profile:"+widget.name.toString());
+    print("profile:"+widget.userid.toString());
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -99,7 +99,8 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
                   children: [
                     Consumer<mainprovider>(
                       builder: (context,val,child) {
-                        return  val.editimage!=""? Container(     // image.....
+                        return 
+                         val.editimage!=""? Container(     // image.....
                           child: CircleAvatar(
                             radius: 38,
                             backgroundColor: myblack,
@@ -107,7 +108,7 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
                           ),
                         )
                         
-                        :widget.photo!="" ? Container(
+                        : widget.photo!="" ? Container(
                           child: CircleAvatar(
                             radius: 38,
                             backgroundImage: NetworkImage(widget.photo),
@@ -117,6 +118,7 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
                           child: CircleAvatar(
                             radius: 38,
                             backgroundColor: gray,
+                             child: Text(widget.name[0].toUpperCase(),style: TextStyle(color: orange,fontSize: 22,fontWeight: FontWeight.w700),) 
                           ),
                         );
                       }
@@ -279,6 +281,11 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
                           Navigator.push(context, MaterialPageRoute(builder:(context) => recipesave(userid:widget.userid,name:widget.name,phone:widget.phone,) ));
                           },
                           child: textbutton("Your recipe", context));
+
+                  
+
+
+                
                     }
                   )
                 ],

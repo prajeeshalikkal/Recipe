@@ -48,8 +48,9 @@ class recipesave extends StatelessWidget {
               SizedBox( height: height/80),
                    Consumer<mainprovider>(
                      builder: (context, value, child) {
-                     return
-                         GridView.builder(
+                     return 
+
+                       value. useraddpro.length!=""? GridView.builder(
                            scrollDirection: Axis.vertical,
                            shrinkWrap: true,
                            physics: ScrollPhysics(),
@@ -76,6 +77,7 @@ class recipesave extends StatelessWidget {
                                        Navigator.push(context, MaterialPageRoute(builder: (context)=>mainrecipie(
                                      id: item.id,name: item.name,photo: item.photo,category: item.category,direction: item.direction,time: item.time,
                                      incredient: item.incredient,incredient1: item.incredient1,categoryid: item.categoryid,addedby: item.addedby,userid: item.userid,
+                                     UserId: userid,UserName: name,
                                     )));
                                      },                                   
                                      child: Container(
@@ -139,7 +141,14 @@ class recipesave extends StatelessWidget {
                                ),
                              );
                            },
-                         );
+                         ):Container(
+                          height: height / 2,
+                          width: width / 1.5,
+                          child: Image(
+                              image: AssetImage(
+                            "assets/WhatsApp Image 2024-01-11 at 12.09 1.png",
+                          ))
+                    );
                        
                    }),
         

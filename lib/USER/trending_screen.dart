@@ -88,7 +88,7 @@ class trending extends StatelessWidget {
                                             builder: (context) => mainrecipie(
                                               id: item.id, name: item.name, photo: item.photo,category: item.category,direction: item.direction,time: item.time,
                                               incredient: item.incredient, incredient1: item.incredient1,categoryid: item.categoryid,addedby: item.addedby, userid: item.userId,
-                                              
+                                              UserId: userid,UserName: name,
                                             ),
                                           ));
                                     },

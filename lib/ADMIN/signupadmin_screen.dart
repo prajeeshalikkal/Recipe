@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipeapp/ADMIN/home_admin.dart';
+import 'package:recipeapp/ADMIN/login_admin_screen.dart';
 import 'package:recipeapp/CONSTANTS/mycolors.dart';
 import 'package:recipeapp/CONSTANTS/mywidget.dart';
 import 'package:recipeapp/PROVIDER/mainprovider.dart';
@@ -51,7 +52,11 @@ class signupadmin extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Already have an account?",style: TextStyle(color:white),),
-                            Text(" Log in",style: TextStyle(color:orange))
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>loginadmin()));
+                              },
+                              child: Text(" Log in",style: TextStyle(color:orange)))
                           ],
                         ),
           ],

@@ -7,6 +7,7 @@ import 'package:recipeapp/CONSTANTS/mywidget.dart';
 import 'package:recipeapp/PROVIDER/mainprovider.dart';
 import 'package:recipeapp/USER/comment_screen.dart';
 import 'package:recipeapp/USER/profile_screen.dart';
+import 'package:recipeapp/USER/recprofile.dart';
 import 'package:recipeapp/USER/subprofile.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -22,9 +23,12 @@ class mainrecipie extends StatelessWidget {
   String categoryid;
   String addedby;
   String incredient1;
+  String UserId;
+    String UserName;
+
   mainrecipie({super.key,required this.id,required this.name,required this.photo,required this.category,
    required this.direction,required this.time,required this.incredient,required this.incredient1,required this.categoryid,
-   required this.addedby,required this.userid,});
+   required this.addedby,required this.userid,required this.UserId,required this.UserName,});
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +123,7 @@ class mainrecipie extends StatelessWidget {
                             SizedBox(height: height/40),
                              GestureDetector(
                               onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>subprofile(name: addedby,userid: userid,phone: "",photo:photo.toString(),)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>recprofile(name: addedby,userid: userid,phone: "",photo:photo.toString(),)));
                               },
                                child: Padding(
                                  padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -181,9 +185,9 @@ class mainrecipie extends StatelessWidget {
                                         builder: (context,val,child) {
                                           return GestureDetector(
                                             onTap: () {
-                                              print("nnnnnnnnmm"+addedby);
+                                              print("nnnnnnnnmm"+UserName);
                                              val.getReviews(id);
-                                              Navigator.push(context, MaterialPageRoute(builder:(context) => comment(userid: userid,addedby: addedby,recipeid:id,)));
+                                              Navigator.push(context, MaterialPageRoute(builder:(context) => comment(userid: userid,addedby: addedby,recipeid:id,UserId: UserId,UserName: UserName,)));
                                             },
                                             child: Text("Read",style: TextStyle(color: orange,fontSize: 14.5,fontWeight: FontWeight.w400),));
                                         }
@@ -218,7 +222,8 @@ class mainrecipie extends StatelessWidget {
                                SizedBox(height: height/40),
                                             Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 20),
-                                              child: Row(        
+                                              child: Row( 
+                                                crossAxisAlignment: CrossAxisAlignment.start,       
                                                 children: [
                                                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [

@@ -851,10 +851,11 @@ void getrecipeadd2(String cateId){
     }
 
     
-///  ......... USER GET >>>>>>
+///  ......... USER GET >>>>>>  -------- request ----------
 
   List<useraddrecipemodel>useraddrecipe=[];
   void getuserrecipeadd(){
+    
   db.collection("RECIPE").where("STATUS",isEqualTo:"REQUEST" ).get().then((value){
     useraddrecipe.clear();
     if(value.docs.isNotEmpty){
@@ -891,12 +892,14 @@ void getrecipeadd2(String cateId){
   });
 }
 
-/// 2 user recipe add profile screen get ............. /24/05/2024 .......................
+//   ---------------  APPROVED  -------------------- get
+
+/// 2 user recipe add profile screen Approved aayyyath mathram fetcheeth iddkkan ............. /24/05/2024 .......................
 
   List<useraddrecipemodel>useraddpro=[];
   void getuseraddpro(String userid){
     print("nnnnnnnoo"+userid);
-    db.collection("RECIPE").where("USER_ID",isEqualTo:userid).get().then((value){
+    db.collection("RECIPE").where("USER_ID",isEqualTo:userid).where("STATUS",isEqualTo:"APPROVED").get().then((value){
     useraddpro.clear();
     if(value.docs.isNotEmpty){
     print("valllmm"+userid.toString());
@@ -1336,7 +1339,7 @@ TextEditingController reviewController = TextEditingController();
 
 ///           ADD REVIEW................
 Future <void> addReviews(String userid,String name,recId) async{
-    print("hello"+userid);
+    print("hello"+name);
     String id= DateTime.now().millisecondsSinceEpoch.toString();
     HashMap<String, Object> reviewMap = HashMap();
     reviewMap["REVIEW"] = reviewController.text.toString();
@@ -1369,7 +1372,7 @@ void getReviews(String recId){
            revMap["USER_ID"].toString(),
            value.id, 
            revMap["USER_NAME"].toString(),
-           DateFormat.jm().format(revMap['TIME'].toDate()).toString(),
+           DateFormat.yMMMMEEEEd().format(revMap['TIME'].toDate()).toString(),
            revMap["REVIEW"].toString(),
            revMap["REVIEW_ID"].toString(),
            revMap["RECIPE_ID"].toString(),

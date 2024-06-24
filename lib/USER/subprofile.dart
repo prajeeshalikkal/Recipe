@@ -16,22 +16,26 @@ import 'package:recipeapp/USER/notification_screen.dart';
 import 'package:recipeapp/USER/recipe_save_screen.dart';
 
 class subprofile extends StatefulWidget {
-   String userid;
-   String name;
-   String phone;
-   String photo;
-   subprofile({super.key,required this.userid,required this.name,required this.phone,required this.photo});
+  String userid;
+  String name;
+  String phone;
+  String photo;
+  subprofile(
+      {super.key,
+      required this.userid,
+      required this.name,
+      required this.phone,
+      required this.photo});
 
   @override
   State<subprofile> createState() => _profileState();
 }
 
-class _profileState extends State<subprofile> with SingleTickerProviderStateMixin {
+class _profileState extends State<subprofile>
+    with SingleTickerProviderStateMixin {
   late TabController tabcontroller;
   PageController pageveiw = PageController(initialPage: 0);
   int currentIndex = 0;
-  
-
 
   void _itemTapped(int index) {
     setState(() {
@@ -47,7 +51,7 @@ class _profileState extends State<subprofile> with SingleTickerProviderStateMixi
   }
 
   Widget build(BuildContext context) {
-    print("profile:"+widget.name.toString());
+    print("profile:" + widget.name.toString());
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
@@ -97,52 +101,57 @@ class _profileState extends State<subprofile> with SingleTickerProviderStateMixi
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Consumer<mainprovider>(
-                      builder: (context,val,child) {
-                        return  val.editimage!=""? Container(     // image.....
-                          child: CircleAvatar(
-                            radius: 38,
-                            backgroundColor: myblack,
-                            backgroundImage: NetworkImage(val.editimage),
-                          ),
-                        )
-                        
-                        :widget.photo!="" ? Container(
-                          child: CircleAvatar(
-                            radius: 38,
-                            backgroundImage: NetworkImage(widget.photo),
-                          ),
-                        )
-                        :Container(
-                          child: CircleAvatar(
-                            radius: 38,
-                            backgroundColor: gray,
-                          ),
-                        );
-                      }
-                    ),
+                    Consumer<mainprovider>(builder: (context, val, child) {
+                      return val.editimage != ""
+                          ? Container(
+                              // image.....
+                              child: CircleAvatar(
+                                radius: 38,
+                                backgroundColor: myblack,
+                                backgroundImage: NetworkImage(val.editimage),
+                              ),
+                            )
+                          :
+
+                          // :widget.photo!="" ? Container(
+                          //   child: CircleAvatar(
+                          //     radius: 38,
+                          //     backgroundImage: NetworkImage(widget.photo),
+                          //   ),
+                          // )
+                          // :
+                          Container(
+                              child: CircleAvatar(
+                                radius: 38,
+                                backgroundColor: gray,
+                                child: Text(
+                                  widget.name[0].toUpperCase(),
+                                  style: TextStyle(
+                                      color: orange,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            );
+                    }),
                     SizedBox(
                       width: 20,
                     ),
-
-                    Consumer<mainprovider>(
-                      builder: (context,val,child) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(widget.name,     // Name ..........
-                                style: TextStyle(
-                                    color: white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600)),
-                            SizedBox( 
-                              height: 10,
-                            ),
-                          
-                          ],
-                        );
-                      }
-                    ),
+                    Consumer<mainprovider>(builder: (context, val, child) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.name, // Name ..........
+                              style: TextStyle(
+                                  color: white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600)),
+                          SizedBox(
+                            height: 10,
+                          ),
+                        ],
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -150,6 +159,7 @@ class _profileState extends State<subprofile> with SingleTickerProviderStateMixi
           ),
         ),
 
+        
         automaticallyImplyLeading: false,
         toolbarHeight: 155,
         backgroundColor: Colors.transparent,
@@ -164,94 +174,81 @@ class _profileState extends State<subprofile> with SingleTickerProviderStateMixi
 
             tabs: [
               Container(
-                  width: width / 2,
-                  child: Tab(
-                    text: "favorites",
-                  )),
-              Container(width: width / 2, 
-              child: Tab(
-              text: "recipe")),
+                width: width / 2,
+                child: Tab(text: "recipe"),
+              ),
             ]),
       ),
-
-
       body: Expanded(
         child: TabBarView(
           controller: tabcontroller,
           children: [
+            // SingleChildScrollView(=
+            //   child: Consumer<mainprovider>(
+            //     builder: (context,value,child) {
+            //       return InkWell(
+            //         onTap: () {
+            //           // value.getuseraddpro(widget.userid);
+            //           Navigator.push(context, MaterialPageRoute(builder:(context) => favsave(userid:widget.userid,name:widget.name,phone:widget.phone,photo:widget.photo ,) ));
+            //         },
+            //         child: Container(
+            //           child: SizedBox(
+            //               height: height / 2,
+            //               width: width / 1.5,
+            //               child: Image(
+            //                   image: AssetImage(
+            //                 "assets/WhatsApp Image 2024-01-11 at 12.09 1.png",
+            //               ))),
+            //         ),
+            //       );
+            //     }
+            //   ),
+            // ),
 
             SingleChildScrollView(
-              child: Consumer<mainprovider>(
-                builder: (context,value,child) {
-                  return InkWell(
-                    onTap: () {
-                      // value.getuseraddpro(widget.userid);
-                      Navigator.push(context, MaterialPageRoute(builder:(context) => favsave(userid:widget.userid,name:widget.name,phone:widget.phone,photo:widget.photo ,) ));
-                    },
-                    child: Container(
-                      child: SizedBox(
-                          height: height / 2,
-                          width: width / 1.5,
-                          child: Image(
-                              image: AssetImage(
-                            "assets/WhatsApp Image 2024-01-11 at 12.09 1.png",
-                          ))),
-                    ),
-                  );
-                }
-              ),
-            ),
-            
-
-            SingleChildScrollView(                  //     recipe save page.........
+              //     recipe save page.........
               child: Column(
                 children: [
-                  Consumer<mainprovider>(
-                    builder: (context,val,child) {
-                      return InkWell(
-                        onTap:() {
-                          print("kkkkkkkkooo"+widget.userid);
-                          // val.getuseraddpro(widget.userid);
-                          // Navigator.push(context, MaterialPageRoute(builder:(context) => recipesave(userid:widget.userid,name:widget.name,phone:widget.phone,) ));
-                        },
-                        child: Container(
-                          height: height / 3,
-                          width: width / 1.5,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/WhatsApp Image 2024-01-11 at 12.11 1.png"))),
-                        ),
-                      );
-                    }
-                  ),
+                  Consumer<mainprovider>(builder: (context, val, child) {
+                    return InkWell(
+                      onTap: () {
+                        print("kkkkkkkkooo" + widget.userid);
+                        // val.getuseraddpro(widget.userid);
+                        // Navigator.push(context, MaterialPageRoute(builder:(context) => recipesave(userid:widget.userid,name:widget.name,phone:widget.phone,) ));
+                      },
+                      child: Container(
+                        height: height / 3,
+                        width: width / 1.5,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/WhatsApp Image 2024-01-11 at 12.11 1.png"))),
+                      ),
+                    );
+                  }),
 
-                 
+                  SizedBox(
+                    height: height / 10,
+                  ), // save button.......
 
-                  SizedBox(height: height/10,),            // save button.......
-                  Consumer<mainprovider>(
-                    builder: (context,value,child) {
-                     return InkWell(
-                            onTap: () {
-                            value.getcategory();
-                            value.userrecipeaddclear();
-                            Navigator.push(context,MaterialPageRoute(builder: (context) =>addrecipe1(userid:widget.userid,name:widget.name,phone:widget.phone,photo:widget.photo,)));
-                          },
-                          child: textbutton("Share your recipe", context));
-                    }
-                  ),
-                   SizedBox(height: height/40,),            // save button.......
-                  Consumer<mainprovider>(
-                    builder: (context,value,child) {
-                     return InkWell(
-                            onTap: () {
-                          
+                  SizedBox(
+                    height: height / 40,
+                  ), // save button.......
+                  Consumer<mainprovider>(builder: (context, value, child) {
+                    return InkWell(
+                        onTap: () {
                           value.getuseraddpro(widget.userid);
-                          Navigator.push(context, MaterialPageRoute(builder:(context) => recipesave(userid:widget.userid,name:widget.name,phone:widget.phone,) ));
-                          },
-                          child: textbutton("Your recipe", context));
-                    }
-                  )
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => recipesave(
+                                        userid: widget.userid,
+                                        name: widget.name,
+                                        phone: widget.phone,
+                                      )));
+                        },
+                        child: textbutton("Your recipe", context));
+                  })
                 ],
               ),
             ),

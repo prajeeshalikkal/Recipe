@@ -64,7 +64,7 @@ Widget txtformfield2(String text ,TextEditingController controller) {
           filled: true,
           hintText: text,
           // prefixIcon:Icon(Icons.search_outlined,color: white,),
-          hintStyle: TextStyle(color: white, fontSize: 15),
+          hintStyle: TextStyle(color: gray, fontSize: 15),
 
           border: OutlineInputBorder(
             borderSide: const BorderSide(

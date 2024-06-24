@@ -10,17 +10,20 @@ class comment extends StatelessWidget {
   String userid;
   String addedby;
   String recipeid;
+   String UserId;
+  String UserName;
 
   comment({
     super.key,
     required this.userid,
     required this.addedby,
     required this.recipeid,
+    required this.UserId,required this.UserName,
   });
 
   @override
   Widget build(BuildContext context) {
-    print("ndn" + addedby);
+    print("dvdd" + addedby);
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -72,7 +75,7 @@ class comment extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       print("object" + recipeid);
-                      value.addReviews(userid, addedby, recipeid);
+                      value.addReviews(UserId, UserName, recipeid);
                       value.clearReviews();
                       value.getReviews(recipeid);
                       //  value.getReviews(recipeid);
@@ -100,6 +103,7 @@ class comment extends StatelessWidget {
             SizedBox(height: height / 20),
             Consumer<mainprovider>(builder: (context, val, child) {
               return ListView.builder(
+                physics: ScrollPhysics(),
                 itemCount: val.reviewList.length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
@@ -117,7 +121,7 @@ class comment extends StatelessWidget {
 
                     title: Row(
                       children: [
-                        // addedby.......
+                        // addedby---------->
                         Text(val.reviewList[index].name,
                             style: TextStyle(
                                 color: white,
@@ -144,6 +148,7 @@ class comment extends StatelessWidget {
                 },
               );
             }),
+            SizedBox(height: height/10,),
           ],
         ),
       ),

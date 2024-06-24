@@ -9,7 +9,12 @@ import 'package:recipeapp/USER/search_screen.dart';
 
 class searchcategory extends StatelessWidget {
   String categoryid;
-   searchcategory({super.key, required this.categoryid });
+   String userid;
+  String name;
+  String phone;
+  String photo;
+
+   searchcategory({super.key, required this.categoryid,required this.userid,required this.name,required this.phone,required this.photo });
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +86,7 @@ class searchcategory extends StatelessWidget {
                                                 categoryid: item.categoryid,
                                                 addedby: item.addedby,
                                                 userid: item.userId,
+                                                UserId: userid,UserName: name,
                                               ),
                                             ));
                                       },

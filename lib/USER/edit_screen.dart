@@ -104,6 +104,7 @@ class edit extends StatelessWidget {
                                 builder: (context,val,child) {
                                   return InkWell(
                                     onTap: () {
+                                      Navigator.pop(context);
                                       print("loloooooo"+phone.toString());
                                       val.EditProfile(userid,phone,);
                                     },
