@@ -275,19 +275,19 @@ Future<void> userAuthorized(String? phoneNumber, BuildContext context6) async {
 print("catch printeddddddddd  :  $e");
 
 
-      //  const snackBar = SnackBar(
-      //      backgroundColor: Colors.white,
-      //      duration: Duration(milliseconds: 3000),
-      //      content: Text("Sorry , Some Error Occurred",
-      //        textAlign: TextAlign.center,
-      //        softWrap: true,
-      //        style: TextStyle(
-      //            fontSize: 18,
-      //            color: Colors.black,
-      //            fontWeight: FontWeight.bold),
-      //      ));
-      //  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+       const snackBar = SnackBar(
+           backgroundColor: Colors.white,
+           duration: Duration(milliseconds: 3000),
+           content: Text("Sorry , Some Error Occurred",
+             textAlign: TextAlign.center,
+             softWrap: true,
+             style: TextStyle(
+                 fontSize: 18,
+                 color: Colors.black,
+                 fontWeight: FontWeight.bold),
+           ));
+       ScaffoldMessenger.of(context6).showSnackBar(snackBar);
      }
-   }
+   } 
 
 }

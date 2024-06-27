@@ -6,43 +6,48 @@ import 'package:recipeapp/PROVIDER/mainprovider.dart';
 import 'package:recipeapp/USER/searchcategory_screen.dart';
 
 class search extends StatelessWidget {
-    String userid;
+  String userid;
   String name;
   String phone;
   String photo;
- search({super.key,required this.userid,required this.name,required this.phone,required this.photo});
+  search(
+      {super.key,
+      required this.userid,
+      required this.name,
+      required this.phone,
+      required this.photo});
 
   @override
   Widget build(BuildContext context) {
-    mainprovider provider=Provider.of<mainprovider>( context,listen: false);
+    mainprovider provider = Provider.of<mainprovider>(context, listen: false);
     provider.getcategory();
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: myblack,
+      appBar: AppBar(
+        leadingWidth: width / 1,
+        backgroundColor: myblack,
+        toolbarHeight:height/6.5,
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Search",
+                  style: TextStyle(
+                      color: white, fontSize: 22, fontWeight: FontWeight.w600)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: txtformfield3("What do you want to cook?"),
+              )
+            ],
+          ),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: height / 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text("Search",
-                      style: TextStyle(
-                          color: white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600)),
-                ),
-                SizedBox(height: height / 60),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: txtformfield3("What do you want to cook?"),
-                )
-              ],
-            ),
-            SizedBox(height: height / 190),
             Consumer<mainprovider>(builder: (context, value, child) {
               return GridView.builder(
                 scrollDirection: Axis.vertical,
@@ -51,8 +56,8 @@ class search extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 1,
-                  mainAxisExtent: 166,
-                  mainAxisSpacing: 24,
+                  mainAxisExtent: 170,
+                  mainAxisSpacing: 34,
                 ),
                 itemCount: value.categorylist.length,
                 itemBuilder: (context, index) {
@@ -60,11 +65,19 @@ class search extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: GestureDetector(
                       onTap: () {
-                        value.getrecipeadd2(value.categorylist[index].id,);
+                        value.getrecipeadd2(
+                          value.categorylist[index].id,
+                        );
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => searchcategory( categoryid:value.categorylist[index].id,name: name,phone:  phone, photo: photo,userid: userid,)));
+                                builder: (context) => searchcategory(
+                                      categoryid: value.categorylist[index].id,
+                                      name: name,
+                                      phone: phone,
+                                      photo: photo,
+                                      userid: userid,
+                                    )));
                       },
                       child: Container(
                         height: height / 5,
@@ -101,7 +114,7 @@ class search extends StatelessWidget {
                 },
               );
             }),
-            // SizedBox(height: height / 10),
+            SizedBox(height: height / 40),
           ], //chill
         ),
       ),

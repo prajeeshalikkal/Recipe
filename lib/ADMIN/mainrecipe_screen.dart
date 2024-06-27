@@ -26,14 +26,19 @@ class adminmainrecipe extends StatelessWidget {
       backgroundColor: myblack,
       appBar: AppBar(
         backgroundColor: myblack,
-        leading: CircleAvatar(
-                      radius: 12,
-                      backgroundColor: myblack,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Icon(Icons.arrow_back_ios,color: white,size:16,),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: CircleAvatar(
+                        radius: 12,
+                        backgroundColor: myblack,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Icon(Icons.arrow_back_ios,color: white,size:16,),
+                        ),
                       ),
-                    )
+        )
       ),
 
 

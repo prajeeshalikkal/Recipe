@@ -206,7 +206,7 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
       ),
 
 
-      body: Expanded(
+      body: SizedBox(
         child: TabBarView(
           controller: tabcontroller,
           children: [
@@ -259,7 +259,7 @@ class _profileState extends State<profile> with SingleTickerProviderStateMixin {
 
                  
 
-                  SizedBox(height: height/10,),            // save button.......
+                  SizedBox(height: height/40,),            // save button.......
                   Consumer<mainprovider>(
                     builder: (context,value,child) {
                      return InkWell(
