@@ -1,4 +1,6 @@
 
+// ignore_for_file: camel_case_types
+
 /// CATEGORY MODEL CLASS>>>>
 class categorymodel{
   String id;
@@ -20,8 +22,8 @@ class recipeaddmodel{
   String incredient1;
   String categoryid;
   String addedby;
- 
-    recipeaddmodel(this.id,this.name,this.photo,this.category,this.direction,this.time,this.incredient,this.incredient1,this.categoryid,this.addedby,this.userId);
+ bool favBool;
+    recipeaddmodel(this.id,this.name,this.photo,this.category,this.direction,this.time,this.incredient,this.incredient1,this.categoryid,this.addedby,this.userId,this.favBool);
 
 }
 

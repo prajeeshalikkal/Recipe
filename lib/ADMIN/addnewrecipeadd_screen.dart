@@ -302,7 +302,7 @@ class addrecipe extends StatelessWidget {
                   builder: (context,value,child) {
                     return GestureDetector(
                       onTap: () {
-                        /// loader....
+                        /// validator....
                         final FormState? form=formkey.currentState;
                         if(form!.validate()){
                             if(value.recipefileimg!=null){

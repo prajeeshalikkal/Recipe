@@ -38,7 +38,11 @@ class searchcategory extends StatelessWidget {
                       color: white,
                       size: 18,
                     )),
-                title: txtformfield3("write recipie"),
+                title: Consumer<mainprovider>(
+                  builder: (context,value,child) {
+                    return txtformfield3("write recipie");
+                  }
+                ),
               ),
               SizedBox(height: height / 40),
               Column(
@@ -48,7 +52,8 @@ class searchcategory extends StatelessWidget {
                       children: [
                         SizedBox(width: 12),
                         Expanded(
-                          child: GridView.builder(
+                          child:value.catnewfatch.isNotEmpty?
+                           GridView.builder(
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
@@ -107,37 +112,49 @@ class searchcategory extends StatelessWidget {
                                           children: [
                                             Positioned(
                                                 child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 4, top: 171),
-                                              child: Container(
-                                                height: height / 36,
-                                                width: width / 8,
-                                                decoration: BoxDecoration(
-                                                  color: gray.withOpacity(0.85),
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
+                                              padding:  EdgeInsets.only(
+                                                  left:width/82,bottom: height/200),
+                                              child: Align(
+                                                alignment: Alignment.bottomLeft,
+                                                child: Container(
+                                                  height: height / 36,
+                                                  width: width / 8,
+                                                  decoration: BoxDecoration(
+                                                    color: gray.withOpacity(0.85),
+                                                    borderRadius:
+                                                        BorderRadius.circular(12),
+                                                  ),
+                                                  child: Center(
+                                                      child: Text(
+                                                    value
+                                                        .catnewfatch[index].time
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        color: white,
+                                                        fontSize: 12),
+                                                  )),
                                                 ),
-                                                child: Center(
-                                                    child: Text(
-                                                  value
-                                                      .catnewfatch[index].time
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: white,
-                                                      fontSize: 12),
-                                                )),
                                               ),
                                             )),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 110, top: 4),
-                                              child: CircleAvatar(
-                                                backgroundColor:
-                                                    gray.withOpacity(0.85),
-                                                radius: 16,
-                                                child: Icon(
-                                                    Icons.favorite_outline,
-                                                    color: white),
+                                                 top: 4,right: 4,),
+                                              child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: GestureDetector(
+                                                  onTap: (){                                            
+                                           
+                                               value.AddFavorites(userid, item.id,);
+                                            },
+                                             child: CircleAvatar(
+                                             backgroundColor: gray.withOpacity(0.85),
+                                             radius: 16,
+                                             child:
+                                              Icon(Icons.favorite,
+                                              color: value.checkFavList.any((item1) => item1 == item.id)?Colors.red:
+                                              lightgray),
+                                               ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -163,7 +180,16 @@ class searchcategory extends StatelessWidget {
                                 ),
                               );
                             },
-                          ),
+                          ):
+                          // CircularProgressIndicator(),
+                          Container(
+                          height: height / 2,
+                          width: width / 1.5,
+                          child: Image(
+                              image: AssetImage(
+                            "assets/WhatsApp Image 2024-01-11 at 12.09 1.png",
+                          ))
+                    ),
                         ),
                       ],
                     );

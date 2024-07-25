@@ -9,6 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:recipeapp/CONSTANTS/mycolors.dart';
 import 'package:recipeapp/MODEL/modelclass.dart';
+import 'package:recipeapp/USER/bottomnavigationbar_screen.dart';
+import 'package:recipeapp/USER/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 class mainprovider extends ChangeNotifier{
@@ -116,11 +118,10 @@ List<String>searchlist=[
   String nullimage="";
 
  TextEditingController editprofilenamecontroller =TextEditingController();
-   Future<void>EditProfile(String id,String phone) async {
+   Future<void>EditProfile(String id,String phone,BuildContext context) async {
 
 // print("edit straartedddddd    $id, $phone   ${nameregcontroller.text} ");
-
-
+  
     HashMap<String, dynamic>editmap = HashMap();
     editmap["USER_ID"]=id;
     editmap["USER_NAME"]=nameregcontroller.text;
@@ -166,12 +167,14 @@ recipeaddlist.where((element) => element.userId == id).forEach((element) {
   element.addedby = nameregcontroller.text;
 });
 
-// print("afterrrrrrrrrrrr iddddd   ${recipeaddlist.where((element) => element.userId==id).first.addedby}");
-// print("nnnnnnnnnnnnnnnnnn");
 
-notifyListeners();
       db.collection("USERS").doc(id).set(editmap,SetOptions(merge: true));
+      Editpro(id);
+      notifyListeners();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Bottombar(name:nameregcontroller.text,phone: phone,photo:editimage,userid: id,),));
   }
+
+
 
 
     Future getEditProfileImggallery() async {
@@ -245,26 +248,31 @@ notifyListeners();
 
 
 // edit profile..............................................>>>>>>>>>>>>>>>>>>>>>>>>
-
-void Editpro(String id,){
-     db.collection("USERS").doc(id).get().then((value){
-       if (value.exists){
-        Map<dynamic,dynamic>Editpromap=value.data() as Map;
-        nameregcontroller.text=Editpromap["USER_NAME"].toString();
-        
-      
-       }
-     });
-     notifyListeners();
+String nameUser = '';
+Future<void> Editpro(String id) async {
+  print('soajhajsdk');
+  try {
+    var doc = await db.collection("USERS").doc(id).get();
+    if (doc.exists) {
+      Map<dynamic, dynamic> Editpromap = doc.data() as Map;
+      nameregcontroller.text = Editpromap["USER_NAME"].toString();
+      nameUser = Editpromap["USER_NAME"].toString();
+      notifyListeners();
+    }
+  } catch (e) {
+    print('Error: $e');
+  }
+  print(nameregcontroller.text + 'ytrdfghjkl');
+  notifyListeners();
 }
 
 
 
 
 // edit pro GET.........................
- List<registermodel>editprolist=[];
+  List<registermodel>editprolist=[]; 
  void geteditpro(String userid){
-  print("kkkkkkkkk"+editprolist.toString());
+  print("kkkkkkkkk"+editprolist.length.toString());
   db.collection("USERS").doc(userid).get().then((value){
    if(value.exists){
       editprolist.clear();
@@ -276,12 +284,15 @@ void Editpro(String id,){
         editMap["PHOTO"]??"",
         editMap["USER_TYPE"].toString(),
           ));
- print("gggggllllrrrrrrrrrr"+editMap["PHOTO"].toString());
- print("tttttttttttttttt"+editMap["USER_NAME"].toString());
+//  print("gggggllllrrrrrrrrrr"+editMap["PHOTO"].toString());
+  print("tttttttttttttttt"+editMap["USER_NAME"].toString());
       notifyListeners();
    
    }
+   
   });
+   notifyListeners();
+
  }
 
 
@@ -436,10 +447,12 @@ void getcategory(){
           element.get("PHOTO")));
       notifyListeners();
     }
+   
     }
-    notifyListeners();  
-    
+    notifyListeners(); 
+    //  Filtercategorylist=categorylist;
   });
+  notifyListeners();  
 }
 
 //............................................................................................................
@@ -620,6 +633,7 @@ List<recipeaddmodel>recipeaddlist=[];
 void getrecipeadd(){
   getrecipeaddloader=true;
   db.collection("RECIPE").where("STATUS",isEqualTo: "APPROVED").get().then((value){
+    
     recipeaddlist.clear();
     if(value.docs.isNotEmpty){
       print('valueind'+recipeaddlist.toString());
@@ -640,9 +654,10 @@ void getrecipeadd(){
         element.get("CATEGORY_id").toString(),
         element.get("ADDEDBY").toString(),
         element.get("USER_ID").toString(),
+        false
 
         ));
-         print('user idddssssssssfffff     '+ element.get("USER_ID").toString());
+         print('idddssssssssfffff'+ element.get("USER_ID").toString());
                   print('user idddssssssssfffff     '+ element.get("ADDEDBY").toString());
         }catch(e){
           print("something");
@@ -685,6 +700,7 @@ void getrecipeadd2(String cateId){
         element.get("CATEGORY_id").toString(),
         element.get("ADDEDBY").toString(),
         element.get("USER_ID").toString(),
+        false
 
         ));
          print('user idddssssssssfffff     '+ element.get("USER_ID").toString());
@@ -857,11 +873,10 @@ void getrecipeadd2(String cateId){
 
   List<useraddrecipemodel>useraddrecipe=[];
   void getuserrecipeadd(){
-    
-  db.collection("RECIPE").where("STATUS",isEqualTo:"REQUEST" ).get().then((value){
+  db.collection("RECIPE").where("STATUS",isEqualTo:"REQUEST").get().then((value){
+    print('sjdnfolsdkfm;lsdf');
     useraddrecipe.clear();
     if(value.docs.isNotEmpty){
-      print("valll++"+useraddrecipe.toString());
       for(var element in value.docs){
         try{
         useraddrecipe.add(useraddrecipemodel(
@@ -887,11 +902,13 @@ void getrecipeadd2(String cateId){
 
       notifyListeners();
     }
-   print(useraddrecipe.map((e) => e.photo.toString()+'ooooooooooo'));
+  
     }
     notifyListeners();  
     
   });
+        print("valllassdfsdfsdf++"+useraddrecipe.length.toString());
+
 }
 
 //   ---------------  APPROVED  -------------------- get
@@ -970,7 +987,7 @@ void UserRecipeStatusAccept(String id,from, context){
 
 TextEditingController nameregcontroller =TextEditingController();
 TextEditingController phoneregcontroller =TextEditingController();
-void addregistration(){
+void addregistration(){ 
 String id =DateTime.now().microsecondsSinceEpoch.toString();
 HashMap<String,dynamic> registermap =HashMap();
 registermap["STATUS"]="REQUEST";
@@ -978,8 +995,7 @@ registermap["REGISTER_ID"]=id;
 registermap["REGISTER_NAME"]=nameregcontroller.text;
 registermap["REGISTER_PHONE"]=phoneregcontroller.text;
 db.collection("REGISTRATION").doc(id).set(registermap);
-
-// notifyListeners();
+ notifyListeners();
 
  
 }          
@@ -1394,11 +1410,118 @@ void getReviews(String recId){
 
 
 
+// <---------------- favorites ----------------->
+
+
+List<String> checkFavList=[];
+Future<void> AddFavorites(String userId, String favId) async {
+  try {
+    final userDoc = await db.collection("USERS").doc(userId).get();
+    
+    if (userDoc.exists) {
+      List<String> favList = List<String>.from(userDoc.data()?['FAV_LIST']    ?? []);
+      
+      if (favList.contains(favId)) {
+        favList.remove(favId);
+      } else {
+        favList.add(favId);
+      }
+      
+      await db.collection('USERS').doc(userId).update({'FAV_LIST': favList});
+      
+      checkFavList = favList;
+      notifyListeners();
+      
+    }
+
+  } catch (e) {
+    print("Error updating favorites: $e");
+  }
+  listAllFav(userId);
+  
+}
 
 
 
 
+void getCheckFav(String uid){
+  checkFavList.clear();
+db.collection("USERS").doc(uid).get().then((value) {
+  if(value.exists){
+    Map<dynamic,dynamic> map =value.data() as Map;
+
+    List<dynamic> nn = map['FAV_LIST'];
+    checkFavList  = nn.map((item) => item.toString()).toList();
+
+  }
+  notifyListeners();
+});
+}
+
+
+
+
+
+
+
+List<recipeaddmodel> FavGetList =[];
+
+Future<void> listAllFav(String userID) async {
+  try {
+    FavGetList.clear();
+    final userDoc = await db.collection('USERS').doc(userID).get();
+    
+    if (userDoc.exists) {
+      List<dynamic> idsList = userDoc.data()?['FAV_LIST'] ?? [];
+      print("Favorite IDs: $idsList");
+
+      for (var recipeId in idsList) {
+        final recipeDoc = await db.collection("RECIPE").doc(recipeId).get();
+        
+        if (recipeDoc.exists) {
+          Map<String, dynamic> recipeData = recipeDoc.data() as Map<String, dynamic>;
+          
+          FavGetList.add(recipeaddmodel(
+            recipeId,
+            recipeData["RECIPE_NAME"] ?? "",
+            recipeData["PHOTO"] ?? "",
+            recipeData["CATEGORY"] ?? "",
+            recipeData["DIRECTION"] ?? "",
+            recipeData["TIME"] ?? "",
+            recipeData["INCREDIENT"] ?? "",
+            recipeData["INCREDIENT1"] ?? "",
+            recipeData["CATEGORY_id"] ?? "",
+            recipeData["ADDEDBY"] ?? "",
+            recipeData["USER_ID"] ?? "",
+            false
+          ));
+        }
+      }
+      
+      print("Fetched ${FavGetList.length} favorite recipes");
+      getrecipeaddloader = false;
+      notifyListeners();
+    }
+  } catch (e) {
+    print("Error fetching favorites: $e");
+    getrecipeaddloader = false;
+    notifyListeners();
+  }
+  notifyListeners(); 
+}
  
+
+
+//   List<categorymodel>Filtercategorylist=[];
+
+// void searchCategory(String  text) {
+//     final String lowerCaseQuery = text.toLowerCase();
+//     Filtercategorylist = categorylist.where((item) {
+//       final String itemName = item.name.toLowerCase();
+//       return itemName.contains(lowerCaseQuery);
+//     }).toList();
+//   }
+
 }
 
 

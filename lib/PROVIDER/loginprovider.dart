@@ -103,11 +103,11 @@ class LoginProvider extends ChangeNotifier {
     });
   }
 
-
+mainprovider mainProgg = mainprovider();
 
 Future<void> userAuthorized(String? phoneNumber, BuildContext context6) async {
   print("user Authorized reached");
-  // mainprovider mainPro = Provider.of<mainprovider>(context6, listen: false);
+  //  mainprovider mainPro = Provider.of<mainprovider>(context6, listen: false);
  print("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
      String loginUsername='';
      String loginUsertype='';
@@ -145,7 +145,8 @@ Future<void> userAuthorized(String? phoneNumber, BuildContext context6) async {
                 print("bbbbb");
 
                   // mainPro.getcarouseladd();
-                  // mainPro.getrecipeadd();
+                  print("fhgvud"+loginUsername);
+                  mainProgg.getCheckFav(uid.toString());   // ----------------- 6/7/2024
                   Navigator.push(context6, MaterialPageRoute(builder: (context) => Bottombar( userid: uid,name:loginUsername,phone: phone,photo: loginPhoto,),));
                 
              }

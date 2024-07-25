@@ -46,6 +46,12 @@ Widget txtformfield(String text,TextEditingController controller) {
             // ),
           ),
         ),
+        //vali
+         validator: (value){
+                if(value!.isEmpty){
+                  return "This field is required";
+                }else{}
+              },
       ),
     ),
   );
@@ -92,16 +98,26 @@ Widget txtformfield2(String text ,TextEditingController controller) {
             // ),
           ),
         ),
+
+         validator: (value){
+                if(value!.isEmpty){
+                  return "This field is required";
+                }else{}
+              },
+
       ),
     ),
   );
 }
 
 // textformfield 3.......................................
-Widget txtformfield3(String text) {
+Widget txtformfield3(String text,) {
   return Container(
     height:54,
     child: TextFormField(
+      // onChanged: (value) {
+      //   change(value);
+      // },
       style: TextStyle(color: white),
       decoration: InputDecoration(
         fillColor: myblack,

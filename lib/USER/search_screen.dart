@@ -39,7 +39,11 @@ class search extends StatelessWidget {
                       color: white, fontSize: 22, fontWeight: FontWeight.w600)),
               Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: txtformfield3("What do you want to cook?"),
+                child: Consumer< mainprovider>(
+                  builder: (context,value,child) {
+                    return txtformfield3("What do you want to cook?",);
+                  }
+                ),
               )
             ],
           ),
@@ -56,8 +60,8 @@ class search extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 1,
-                  mainAxisExtent: 170,
-                  mainAxisSpacing: 34,
+                  mainAxisExtent: 156,
+                  mainAxisSpacing: 30,
                 ),
                 itemCount: value.categorylist.length,
                 itemBuilder: (context, index) {
@@ -114,7 +118,7 @@ class search extends StatelessWidget {
                 },
               );
             }),
-            SizedBox(height: height / 40),
+             SizedBox(height: height / 40),
           ], //chill
         ),
       ),

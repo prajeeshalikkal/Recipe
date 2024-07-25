@@ -1,12 +1,15 @@
+
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:recipeapp/ADMIN/carousel.dart';
-import 'package:recipeapp/CONSTANTS/mycolors.dart';
+import 'package:recipeapp/CONSTANTS/mycolors.dart'; 
 import 'package:recipeapp/PROVIDER/mainprovider.dart';
 import 'package:recipeapp/USER/categories_screen_.dart';
+import 'package:recipeapp/USER/favoriets_save_screen.dart';
 import 'package:recipeapp/USER/mainrecipe_screen.dart';
 import 'package:recipeapp/USER/profile_screen.dart';
 import 'package:recipeapp/USER/search_screen.dart';
@@ -21,9 +24,10 @@ class home extends StatelessWidget {
   String photo;
 
    home({super.key,required this.userid,required this.name,required this.phone,required this.photo});
-
+    
   @override
   Widget build(BuildContext context) {
+    Provider.of<mainprovider>(context, listen: false).getCheckFav(userid); 
     print("print_user name"+name.toString());
     print("print_Userid***"+userid.toString());
   
@@ -145,6 +149,12 @@ class home extends StatelessWidget {
                  SizedBox(height: height/60),
                  Consumer<mainprovider>(
                    builder: (context,value,child) {
+                    print(value.FavGetList.length.toString()+' DJNEKJF '+value.recipeaddlist.length.toString());
+                    for(var eee in value.FavGetList){
+                         print("gjugg"+eee.id);
+
+                         };
+                   
                      return value.recipeaddlist.isNotEmpty?
                      SizedBox(
                       height: height/3,
@@ -156,6 +166,8 @@ class home extends StatelessWidget {
                         physics: ScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
+                          print("cgvys"+value.recipeaddlist[index].id.toString());
+                         
                            var item =value.recipeaddlist[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal:8),
@@ -205,11 +217,20 @@ class home extends StatelessWidget {
                                          padding:  EdgeInsets.only(top: 4,right: 4,),
                                          child: Align(
                                           alignment: Alignment.topRight,
-                                           child: CircleAvatar(
-                                           backgroundColor: gray.withOpacity(0.85),
-                                           radius: 16,
-                                           child: Icon(Icons.favorite_outline,color:white),
-                                             ),
+                                           child: InkWell(
+                                            onTap: (){                                            
+                                           
+                                               value.AddFavorites(userid, item.id,);
+                                            },
+                                             child: CircleAvatar(
+                                             backgroundColor: gray.withOpacity(0.85),
+                                             radius: 16,
+                                             child:
+                                              Icon(Icons.favorite,
+                                              color: value.checkFavList.any((item1) => item1 == item.id)?Colors.red:
+                                              lightgray),
+                                               ),
+                                           ),
                                          ),
                                      ),
                                                                              ],
@@ -308,11 +329,21 @@ class home extends StatelessWidget {
                                                                padding:  EdgeInsets.only(right:2,top: 2),
                                                                child: Align(
                                                                 alignment: Alignment.topRight,
-                                                                 child: CircleAvatar(
-                                                                 backgroundColor: gray.withOpacity(0.85),
-                                                                 radius:16,
-                                                                 child: Icon(Icons.favorite_outline,color:white),
-                                                                   ),
+                                                                 child: GestureDetector(
+                                                                    onTap: (){                                            
+                                           
+                                               val.AddFavorites(userid, item.id,);
+                                            },
+                                             child: CircleAvatar(
+                                             backgroundColor: gray.withOpacity(0.85),
+                                             radius: 16,
+                                             child:
+                                              Icon(Icons.favorite,
+                                              color: val.checkFavList.any((item1) => item1 == item.id)?Colors.red:
+                                              lightgray),
+                                               ),
+                                                                  
+                                                                 ),
                                                                ),
                                                            ),
                                                           ],
@@ -332,14 +363,7 @@ class home extends StatelessWidget {
                                   ),
 
 
-          //  SizedBox(height: height/60),
-          //       Padding(
-          //            padding: const EdgeInsets.symmetric(horizontal: 20),
-          //              child: Text("Our most popular recipe",style:TextStyle(
-          //                 color: white,
-          //                    fontSize: 18,
-          //                       fontWeight: FontWeight.w500)),
-          //                          ),
+   
                                    SizedBox(height: height/60),
                               
                  SizedBox(height: height/40,)       
